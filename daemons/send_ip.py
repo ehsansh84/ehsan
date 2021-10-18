@@ -16,12 +16,12 @@ else:
     f.close()
 print(f'pc_ip is {pc_ip} and old_ip is {old_ip}')
 print(old_ip)
-if pc_ip != old_ip:
-    print('sending...')
-    SETTING_API = API_URL + '/v1/setting'
-    data = {
-        'conditions': {'name': 'mypc'},
-        'ip': pc_ip
-    }
-    result = requests.put(SETTING_API, json=data)
-    # print(result.json())
+# if pc_ip != old_ip:
+print('sending...')
+SETTING_API = API_URL + '/v1/setting'
+data = {
+    'conditions': {'name': 'mypc'},
+    'ip': pc_ip
+}
+result = requests.put(SETTING_API, json=data)
+print(result.json())
