@@ -31,6 +31,7 @@ def ExceptionLine():
 
 def set_db(name):
     # global db_name
+    print(f'db_name set to {name}')
     consts.DB_NAME = name
 
 
@@ -56,7 +57,6 @@ def db():
 
 def load_messages():
     messages = {}
-    log.debug('going to load messages...')
     try:
         set_db(consts.DB_NAME)
         col_server_messages = db()['server_messages']

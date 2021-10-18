@@ -32,7 +32,7 @@ class Upload(BaseHandler):
                 file.close()
                 self.set_output('public_operations', 'successful')
                 data['data']['item'] = {'link': '%s/%s/%s' % (consts.ODP_IMAGES + type, datetime.today().date(), filename)}
-                print(data['data']['item'])
+                # print(data['data']['item'])
             else:
                 self.set_output('field_error', 'file_type')
         except Exception:
