@@ -10,6 +10,7 @@ class consts(object):
     LOG_ACTIVE = True
     PDP_ROOT = '/www/'
     CDN_ADDRESS = 'https://cdn.ehsanshirzadi.com'
+    API_URL = 'http://localhost:8100'
     ODP_ROOT = CDN_ADDRESS + '/' + PROJECT_NAME + '/'
     PDP_IMAGES = PDP_ROOT + 'images/'
     SERVER_PORT = '8080'
