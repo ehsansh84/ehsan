@@ -1,5 +1,6 @@
 import requests, os
 from consts import consts
+API_URL = 'https://api.ehsanshirzadi.com'
 url = 'http://icanhazip.com'
 result = requests.get(url)
 pc_ip = result.text.rstrip('\n')
