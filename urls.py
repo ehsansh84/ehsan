@@ -2,6 +2,6 @@ from handlers.handlers import SampleClass, Setting
 
 
 url_patterns = [
-    ("/", SampleClass, None, "sample_class"),
-    ("/setting", Setting, None, "setting"),
+    ("/v1/", SampleClass, None, "sample_class"),
+    ("/v1/setting", Setting, None, "setting"),
 ]

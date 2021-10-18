@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from bson import ObjectId
 from tornado.web import RequestHandler
 from data_templates import output, log_template
-from publics import db, decode_token
+from publics import db, decode_token, ExceptionLine
 from consts import consts
 from log_tools import log
 
@@ -75,6 +75,7 @@ class BaseHandler(RequestHandler):
 
     def set_output(self, group, id, data=None):
         try:
+            # log.info(consts.MESSAGES)
             self.status = consts.MESSAGES[group][id]['status']
             self.set_status(consts.MESSAGES[group][id]['code'])
             self.note = consts.MESSAGES[group][id][self.locale]
@@ -89,7 +90,8 @@ class BaseHandler(RequestHandler):
                     'note': self.note,
                 })
         except Exception as e:
-            log.error(f'Error {str(e)}')
+            # log.error(f'Error {str(e)}')
+            log.error(f'Error {str(e)}{ExceptionLine()}')
             self.status = False
             self.set_status(401)
             self.note = 'Server message not found: %s/%s' % (group, id)

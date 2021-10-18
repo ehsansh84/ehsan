@@ -157,11 +157,13 @@ def insert_messages():
         }
     ])
 
+
 def init_settings():
     col_setting = db()['setting']
     if col_setting.count_documents({}) == 0:
         col_setting.insert_one({
-            'my_pc_ip': '',
+            'name': 'mypc',
+            'ip': '',
             'create_date': datetime.now(),
             'last_update': datetime.now()
         })

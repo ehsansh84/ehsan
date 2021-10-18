@@ -1,6 +1,7 @@
 import sys, os
+from log_tools import log
+from consts import consts
 sys.path.append('/root/dev/app')
-db_name = 'db_name'
 
 
 def PrintException():
@@ -16,9 +17,21 @@ def PrintException():
     # return 'EXCEPTION IN ({}, LINE {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj)
 
 
+def ExceptionLine():
+    import linecache
+    import sys
+    exc_type, exc_obj, tb = sys.exc_info()
+    f = tb.tb_frame
+    lineno = tb.tb_lineno
+    filename = f.f_code.co_filename
+    linecache.checkcache(filename)
+    line = linecache.getline(filename, lineno, f.f_globals)
+    return f"{filename}:{lineno} => {line.strip()}"
+
+
 def set_db(name):
-    global db_name
-    db_name = name
+    # global db_name
+    consts.DB_NAME = name
 
 
 def set_test_mode(mode):
@@ -35,7 +48,7 @@ def db():
         from pymongo import MongoClient
         MONGO_CONNECTION = os.getenv('MONGO')
         con = MongoClient('mongodb://' + MONGO_CONNECTION)
-        return con[db_name]
+        return con[consts.DB_NAME]
     except:
         PrintException()
     return None
@@ -43,9 +56,11 @@ def db():
 
 def load_messages():
     messages = {}
+    log.debug('going to load messages...')
     try:
-        set_db(db_name)
+        set_db(consts.DB_NAME)
         col_server_messages = db()['server_messages']
+        log.debug(col_server_messages.count())
         for item in col_server_messages.find():
             group = item['group']
             name = item['name']
@@ -61,7 +76,7 @@ def load_messages():
 def load_notifications():
     notifications = {}
     try:
-        set_db(db_name)
+        set_db(consts.DB_NAME)
         col_server_notifications = db()['server_notifications']
         for item in col_server_notifications.find():
             group = item['group']
