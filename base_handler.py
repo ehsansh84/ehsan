@@ -523,7 +523,6 @@ class BaseHandler(RequestHandler):
                                 results = self.after_get(results)
                                 self.output['data']['count'] = self.document_count
                                 self.output['data']['list'] = results
-                                # self.set_output('public_operations', 'successful')
                                 self.success()
                         else:
                             try:
@@ -539,7 +538,6 @@ class BaseHandler(RequestHandler):
                                 else:
                                     self.output['data']['item'] = self.after_get_one(results)
                                     self.output['count'] = 1
-                                    # self.set_output('public_operations', 'successful')
                                     self.success()
                             except:
                                 self.set_output('field_error', 'id_format')
@@ -575,9 +573,7 @@ class BaseHandler(RequestHandler):
         self.init_method()
         if not self.load_params():
             return False
-        log.debug('Params loaded')
         self.data_casting()
-        log.debug('Data casted')
         if not self.tokenless:
             log.debug("It's not tokenless")
             if not (self.token_validation() and self.load_permissions() and self.method_access_control() and self.add_user_data()):
@@ -587,19 +583,14 @@ class BaseHandler(RequestHandler):
     def put(self,id=None, *args, **kwargs):
         try:
             if self.http_init(id):
-                log.debug("http_init done!")
                 if self.put_validation_check():
-                    log.debug("put_validation_check done!")
                     if self.before_put():
-                        log.debug("before_put done!")
                         # TODO: Remove this code after some time, only for null values sent by retards
                         if self.allow_action:
-                            log.debug("action allowed!")
                             if 'create_date' in self.params: del self.params['create_date']
                             self.params['last_update'] = datetime.now()
                             col = db()[self.module]
                             query = {}
-                            results = ''
                             if not self.tokenless:
                                 if 'PUT' in self.permissions:
                                     query.update(self.permissions['PUT']['query'])
@@ -610,13 +601,11 @@ class BaseHandler(RequestHandler):
                                     #TODO: end this
                                 else:
                                     query = self.conditions
-                                    log.debug(self.conditions)
                                     results = col.update(query, {'$set': self.params}, multi=True)
                             else:
                                 query = {'_id': self.id}
-                                log.debug(query)
                                 results = col.update_one(query, {'$set': self.params}).raw_result
-                            log.debug(results)
+                            # log.debug(results)
                             if results != '':
                                 if results['nModified'] > 0:
                                     self.success()

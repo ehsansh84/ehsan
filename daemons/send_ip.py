@@ -24,4 +24,4 @@ if pc_ip != old_ip:
         'ip': pc_ip
     }
     result = requests.put(SETTING_API, json=data)
-    print(result.json())
+    # print(result.json())
