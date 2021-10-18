@@ -76,20 +76,6 @@ def load_notifications():
     return notifications
 
 
-# def create_md5(str):
-#     import hashlib
-#     ps = hashlib.md5()
-#     ps.update(str)
-#     _hash = ps.hexdigest()
-#     ps = hashlib.sha1()
-#     ps.update(str)
-#     _hash += ps.hexdigest()[:18:-1]
-#     _hash = _hash[::-1]
-#     ps = hashlib.new('ripemd160')
-#     ps.update(_hash)
-#     return ps.hexdigest()[3:40]
-
-
 def create_md5(s, encoding='utf-8'):
     from hashlib import md5
     return md5(s.encode(encoding)).hexdigest()

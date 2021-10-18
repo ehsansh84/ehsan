@@ -2,6 +2,7 @@ import sys
 sys.path.append('/app')
 from publics import db, create_md5, set_db
 from consts import consts
+from datetime import datetime
 set_db(consts.DB_NAME)
 
 
@@ -156,5 +157,17 @@ def insert_messages():
         }
     ])
 
+def init_settings():
+    col_setting = db()['setting']
+    if col_setting.count_documents({}) == 0:
+        col_setting.insert_one({
+            'my_pc_ip': '',
+            'create_date': datetime.now(),
+            'last_update': datetime.now()
+        })
+
+
 insert_users()
 insert_messages()
+init_settings()
+

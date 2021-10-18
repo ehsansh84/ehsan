@@ -1,7 +1,5 @@
-#git pull
-docker rmi km-rest 
-docker build -t km-rest .
-docker stop km-rest
-docker rm km-rest
-docker run --name km-rest -p 8100:8282 -d --restart always --network dockers_default -e MONGO=mongodb  km-rest
-
+docker build -t ehsan .
+docker stop ehsan && true
+docker rm ehsan && true
+#docker rmi ehsan
+docker run --name ehsan -p 8100:8080 -d --restart always --network dockers_default -e MONGO=mongodb  ehsan
