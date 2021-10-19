@@ -7,3 +7,4 @@
 - Changind network: switch network and send new IP
 - Disconnect VPN
 - Live PC status from a hosted project on PC
+- Apply Github actions
