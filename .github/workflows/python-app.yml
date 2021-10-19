@@ -30,7 +30,8 @@ jobs:
         with:
           context: .
           load: true
-          tags: user/app:latest
+          tags: shirzadi/ehsan:latest
       -
         name: Push it!
+        #run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
         run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
