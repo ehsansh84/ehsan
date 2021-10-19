@@ -34,4 +34,4 @@ jobs:
       -
         name: Push it!
         #run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
-        run: docker push ${{ IMAGE }}:${{ GIT_SHA }}
+        run: docker push ehsan:latest
